@@ -12,7 +12,7 @@ var gulp = require('gulp'),
 
 // Handlebars compiling of .hbs and .json data files
 gulp.task('handlebars', function () {
-    return gulp.src('./src/pages/*.hbs')
+    return gulp.src('./src/pages/**/*.hbs')
         .pipe(hb({
             data: './src/data/*.json',
             helpers: './node_modules/handlebars-layouts/index.js',
