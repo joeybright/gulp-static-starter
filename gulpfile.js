@@ -63,7 +63,8 @@ gulp.task('watch', function() {
   gulp.watch([
     './src/assets/partials/**/*.hbs',
     './src/*.hbs',
-    './src/data/*.json'],
+    './src/data/*.json',
+    './src/pages/**/*.hbs'],
   ['handlebars']);
   // Watch .scss files
   gulp.watch('./src/assets/styles/**/**/*.scss', ['styles']);
