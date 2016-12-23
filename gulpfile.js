@@ -8,10 +8,16 @@ var gulp = require('gulp'),
     htmlmin = require('gulp-htmlmin'),
     uncss = require('gulp-uncss'),
     imagemin = require('gulp-imagemin'),
-    rename = require('gulp-rename');
+    rename = require('gulp-rename'),
+    clean = require('gulp-clean');
+
+gulp.task('clean', function() {
+  return gulp.src('build', {read: false})
+    .pipe(clean({force: true}))
+});
 
 // Handlebars compiling of .hbs and .json data files
-gulp.task('handlebars', function () {
+gulp.task('handlebars', ['clean'], function () {
     return gulp.src('./src/pages/**/*.hbs')
         .pipe(hb({
             data: './src/data/*.json',
@@ -28,7 +34,7 @@ gulp.task('handlebars', function () {
 });
 
 // CSS task
-gulp.task('styles', ['handlebars'], function () {
+gulp.task('styles', ['clean', 'handlebars'], function () {
   gulp.src('./src/assets/styles/app.scss')
     .pipe(sass().on('error', sass.logError))
     .pipe(uncss({
@@ -39,7 +45,7 @@ gulp.task('styles', ['handlebars'], function () {
 });
 
 // JS task
-gulp.task('scripts', function() {
+gulp.task('scripts', ['clean'], function() {
   return gulp.src('./src/assets/scripts/*.js')
     .pipe(concatinate('app.js'))
     .pipe(gulp.dest('./build'));
@@ -48,7 +54,7 @@ gulp.task('scripts', function() {
 // Images task
 // Currently just places images located in the src/assets/images directory
 // into the /build directory. Need to add minification later.
-gulp.task('images', function() {
+gulp.task('images', ['clean'], function() {
   gulp.src(['./src/assets/images/*.png',
             './src/assets/images/*.svg'])
     .pipe(imagemin({
@@ -77,4 +83,4 @@ gulp.task('watch', function() {
   ], ['images']);
 });
 
-gulp.task('default', ['handlebars', 'styles', 'scripts', 'images', 'watch']);
+gulp.task('default', ['clean', 'handlebars', 'styles', 'scripts', 'images', 'watch']);
