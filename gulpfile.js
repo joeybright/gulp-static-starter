@@ -76,17 +76,12 @@ gulp.task('watch', function() {
     './src/assets/partials/**/*.hbs',
     './src/*.hbs',
     './src/data/*.json',
-    './src/pages/**/*.hbs'],
-  ['build']);
-  // Watch .scss files
-  gulp.watch('./src/assets/styles/**/**/*.scss', ['build']);
-  // Watch .js files
-  gulp.watch('./src/assets/scripts/**/*.js', ['build']);
-  // Watch images
-  gulp.watch([
+    './src/pages/**/*.hbs',
+    './src/assets/styles/**/**/*.scss',
+    './src/assets/scripts/**/*.js',
     './src/assets/images/*.png',
-    './src/assets/images/*.svg'
-  ], ['build']);
+    './src/assets/images/*.svg'],
+  ['build']);
 });
 
 gulp.task('build', ['clean', 'handlebars', 'styles', 'scripts', 'images', 'watch', 'serve'])
