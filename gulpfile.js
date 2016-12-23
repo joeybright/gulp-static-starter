@@ -9,7 +9,13 @@ var gulp = require('gulp'),
     uncss = require('gulp-uncss'),
     imagemin = require('gulp-imagemin'),
     rename = require('gulp-rename'),
-    clean = require('gulp-clean');
+    clean = require('gulp-clean'),
+    gls = require('gulp-live-server');
+
+gulp.task('serve', function() {
+  var server = gls.static('build', 4000);
+  return server.start();
+});
 
 gulp.task('clean', function() {
   return gulp.src('build', {read: false})
@@ -83,4 +89,4 @@ gulp.task('watch', function() {
   ], ['images']);
 });
 
-gulp.task('default', ['clean', 'handlebars', 'styles', 'scripts', 'images', 'watch']);
+gulp.task('default', ['clean', 'handlebars', 'styles', 'scripts', 'images', 'watch', 'serve']);
