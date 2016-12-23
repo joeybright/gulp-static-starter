@@ -77,16 +77,18 @@ gulp.task('watch', function() {
     './src/*.hbs',
     './src/data/*.json',
     './src/pages/**/*.hbs'],
-  ['handlebars']);
+  ['build']);
   // Watch .scss files
-  gulp.watch('./src/assets/styles/**/**/*.scss', ['styles']);
+  gulp.watch('./src/assets/styles/**/**/*.scss', ['build']);
   // Watch .js files
-  gulp.watch('./src/assets/scripts/**/*.js', ['scripts']);
+  gulp.watch('./src/assets/scripts/**/*.js', ['build']);
   // Watch images
   gulp.watch([
     './src/assets/images/*.png',
     './src/assets/images/*.svg'
-  ], ['images']);
+  ], ['build']);
 });
 
-gulp.task('default', ['clean', 'handlebars', 'styles', 'scripts', 'images', 'watch', 'serve']);
+gulp.task('build', ['clean', 'handlebars', 'styles', 'scripts', 'images', 'watch', 'serve'])
+
+gulp.task('default', ['build']);
